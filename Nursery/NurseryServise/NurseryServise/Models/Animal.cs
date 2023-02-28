@@ -1,4 +1,6 @@
-﻿namespace NurseryServise.Models
+﻿using NurseryServise.Models.Skills
+
+namespace NurseryServise.Models
 {
     public abstract class Animal
     {
@@ -23,7 +25,7 @@
         {
             return kind;
         }
-        public string getKindId()
+        public int getKindId()
         {
             return id_kind;
         }
