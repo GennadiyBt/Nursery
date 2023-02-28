@@ -1,0 +1,61 @@
+﻿namespace NurseryServise.Models
+{
+    public abstract class Animal
+    {
+        protected string type;
+        protected int id_type;
+        public string kind;
+        protected int id_kind;
+        protected string name;
+        protected int id;
+        protected DateTime birthday;
+        protected List<Skill> skills;
+
+        public string getType()
+        {
+            return type;
+        }
+        public int getTypId()
+        {
+            return id_type;
+        }
+        public string getKind()
+        {
+            return kind;
+        }
+        public string getKindId()
+        {
+            return id_kind;
+        }
+        public string getName()
+        {
+            return name;
+        }
+        public void setName(string value)
+        {
+            name = value;
+        }
+        public int getId()
+        {
+            return id;
+        }
+        public void setId(int value)
+        {
+            id = value;
+        }
+        public DateTime getBirthDay()
+        {
+            return birthday;
+        }
+        public void setBirthday(DateTime value)
+        {
+            birthday = value;
+        }
+        public void addSkill(Skill skill) { }
+
+        public List<Skill> getSkills()
+        {
+            return skills;
+        }
+    }
+}
