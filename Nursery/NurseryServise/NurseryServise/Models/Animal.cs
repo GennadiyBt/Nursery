@@ -1,4 +1,4 @@
-﻿using NurseryServise.Models.Skills
+﻿using NurseryServise.Models.Skills;
 
 namespace NurseryServise.Models
 {

@@ -6,7 +6,8 @@ namespace NurseryServise
     {
         public static void Main(string[] args)
         {
-            ConfigureSqlLiteConnection();
+            //Процедура создания БД, таблиц, заполнение базовых. Процедура проводится при отсутствии БД
+            //ConfigureSqlLiteConnection();
         }
 
         private static void ConfigureSqlLiteConnection()
@@ -24,24 +25,43 @@ namespace NurseryServise
         {
             SQLiteCommand command = new SQLiteCommand(connection);
 
+            command.CommandText = "DROP TABLE IF EXISTS animals_type";
+            command.ExecuteNonQuery();
 
-            command.CommandText = @"CREATE TABLE animals_type( Id INT AUTO_INCREMENT PRIMARY KEY,
+            command.CommandText = "DROP TABLE IF EXISTS home_animals";
+            command.ExecuteNonQuery();
+            command.CommandText = "DROP TABLE IF EXISTS beast_of_burden";
+            command.ExecuteNonQuery();
+            command.CommandText = "DROP TABLE IF EXISTS dog";
+            command.ExecuteNonQuery();
+            command.CommandText = "DROP TABLE IF EXISTS cat";
+            command.ExecuteNonQuery();
+            command.CommandText = "DROP TABLE IF EXISTS hamster";
+            command.ExecuteNonQuery();
+            command.CommandText = "DROP TABLE IF EXISTS hors";
+            command.ExecuteNonQuery();
+            command.CommandText = "DROP TABLE IF EXISTS camel";
+            command.ExecuteNonQuery();
+            command.CommandText = "DROP TABLE IF EXISTS donkey";
+            command.ExecuteNonQuery();
+
+            command.CommandText = @"CREATE TABLE animals_type( Id INTEGER PRIMARY KEY,
                     Type_name VARCHAR(20) );";
             command.ExecuteNonQuery();
 
-            command.CommandText = @"CREATE TABLE home_animals( Id INT AUTO_INCREMENT PRIMARY KEY,
+            command.CommandText = @"CREATE TABLE home_animals( Id INTEGER PRIMARY KEY,
                     Kind_name VARCHAR(20),
                     Type_id INT,
                     FOREIGN KEY (Type_id) REFERENCES animals_type (Id) ON DELETE CASCADE ON UPDATE CASCADE );";
             command.ExecuteNonQuery();
 
-            command.CommandText = @"CREATE TABLE BEAST_OF_BURDEN( Id INT AUTO_INCREMENT PRIMARY KEY,
+            command.CommandText = @"CREATE TABLE BEAST_OF_BURDEN( Id INTEGER PRIMARY KEY,
                     Kind_name VARCHAR(20),
                     Type_id INT,
                     FOREIGN KEY (Type_id) REFERENCES animals_type (Id) ON DELETE CASCADE ON UPDATE CASCADE );";
             command.ExecuteNonQuery();
 
-            command.CommandText = @"CREATE TABLE dog (Id INT AUTO_INCREMENT PRIMARY KEY, 
+            command.CommandText = @"CREATE TABLE dog (Id INTEGER PRIMARY KEY, 
                     Name VARCHAR(20), 
                     Birthday DATE,
                     Commands VARCHAR(50),
@@ -49,7 +69,7 @@ namespace NurseryServise
                     Foreign KEY (Kind_id) REFERENCES home_animals (Id) ON DELETE CASCADE ON UPDATE CASCADE);";
             command.ExecuteNonQuery();
 
-            command.CommandText = @"CREATE TABLE cat(Id INT AUTO_INCREMENT PRIMARY KEY, 
+            command.CommandText = @"CREATE TABLE cat(Id INTEGER PRIMARY KEY, 
                     Name VARCHAR(20), 
                     Birthday DATE,
                     Commands VARCHAR(50),
@@ -57,7 +77,7 @@ namespace NurseryServise
                     Foreign KEY (Kind_id) REFERENCES home_animals (Id) ON DELETE CASCADE ON UPDATE CASCADE);";
             command.ExecuteNonQuery();
 
-            command.CommandText = @"CREATE TABLE hamster (Id INT AUTO_INCREMENT PRIMARY KEY, 
+            command.CommandText = @"CREATE TABLE hamster (Id INTEGER PRIMARY KEY, 
                     Name VARCHAR(20), 
                     Birthday DATE,
                     Commands VARCHAR(50),
@@ -65,7 +85,7 @@ namespace NurseryServise
                     Foreign KEY (Kind_id) REFERENCES home_animals (Id) ON DELETE CASCADE ON UPDATE CASCADE);";
             command.ExecuteNonQuery();
 
-            command.CommandText = @"CREATE TABLE horse (Id INT AUTO_INCREMENT PRIMARY KEY, 
+            command.CommandText = @"CREATE TABLE hors (Id INTEGER PRIMARY KEY, 
                     Name VARCHAR(20), 
                     Birthday DATE,
                     Commands VARCHAR(50),
@@ -73,7 +93,7 @@ namespace NurseryServise
                     Foreign KEY (Kind_id) REFERENCES beast_of_burden (Id) ON DELETE CASCADE ON UPDATE CASCADE);";
             command.ExecuteNonQuery();
 
-            command.CommandText = @"CREATE TABLE camel (Id INT AUTO_INCREMENT PRIMARY KEY, 
+            command.CommandText = @"CREATE TABLE camel (Id INTEGER PRIMARY KEY, 
                     Name VARCHAR(20), 
                     Birthday DATE,
                     Commands VARCHAR(50),
@@ -81,7 +101,7 @@ namespace NurseryServise
                     Foreign KEY (Kind_id) REFERENCES beast_of_burden (Id) ON DELETE CASCADE ON UPDATE CASCADE);";
             command.ExecuteNonQuery();
 
-            command.CommandText = @"CREATE TABLE donkey (Id INT AUTO_INCREMENT PRIMARY KEY, 
+            command.CommandText = @"CREATE TABLE donkey (Id INT PRIMARY KEY, 
                     Name VARCHAR(20), 
                     Birthday DATE,
                     Commands VARCHAR(50),
