@@ -1,8 +1,7 @@
 ﻿namespace NurseryServise.Models.Skills
 {
-    public class Skill
+    public class Skill : ISkill
     {
-        protected int skill_id { get; set; }
         protected string skill_name { get; set; }
 
         

@@ -11,7 +11,7 @@ namespace NurseryServise.Models
         protected string name;
         protected int id;
         protected DateTime birthday;
-        protected List<Skill> skills;
+        protected List<ISkill> skills;
 
         public string getType()
         {
@@ -53,9 +53,9 @@ namespace NurseryServise.Models
         {
             birthday = value;
         }
-        public void addSkill(Skill skill) { }
+        public void addSkill(ISkill skill) { }
 
-        public List<Skill> getSkills()
+        public List<ISkill> getSkills()
         {
             return skills;
         }
