@@ -5,20 +5,20 @@ namespace NurseryServise.Models.Designers
     // Класс конструктора
     public abstract class Constructor
     {
-        public Animal createNewAnimal(int type, int kind, string name, DateTime date) {
+        public static Animal createNewAnimal(int id_type, int id_kind, string name, DateTime date) {
 
-            Animal newAnimal = createAnimal (type, kind);
+            Animal newAnimal = createAnimal (id_type, id_kind);
             newAnimal.setName (name);
             newAnimal.setBirthday (date);
             return newAnimal;
     
         }
 
-        private Animal createAnimal(int type, int kind)
+        private static Animal createAnimal(int id_type, int id_kind)
         {
-            if (type == 1)
+            if (id_type == 1)
             {
-                switch (kind)
+                switch (id_kind)
                 {
                     case 1:
                         return new Dog();
@@ -28,9 +28,9 @@ namespace NurseryServise.Models.Designers
                         return new Hamster();
                 }
             }
-            else if (type == 2)
+            else if (id_type == 2)
             {
-                switch (kind)
+                switch (id_kind)
                 {
                     case 1:
                         return new Hors();

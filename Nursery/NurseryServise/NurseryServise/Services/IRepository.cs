@@ -7,6 +7,6 @@
 
         int Create(T item);
 
-        int Delete(Tid id);
+        int Delete(Tid type_id, Tid kind_id, Tid id);
     }
 }

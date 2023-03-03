@@ -2,7 +2,7 @@
 
 namespace NurseryServise.Services
 {
-    public interface ISkillRepository : IRepository<ISkill, string>
-    {
-    }
+    public interface ISkillRepository : IRepository<ISkill, string> { }
+
+    
 }

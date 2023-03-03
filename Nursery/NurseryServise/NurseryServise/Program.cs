@@ -48,7 +48,6 @@ namespace NurseryServise
                     Birthday INTEGER,
                     Commands TEXT,
                     Kind_id INTEGER,
-                    Skills TEXT,
                     Foreign KEY (Kind_id) REFERENCES home_animals (Id) ON DELETE CASCADE ON UPDATE CASCADE);";
             command.ExecuteNonQuery();
 
@@ -57,7 +56,6 @@ namespace NurseryServise
                     Birthday INTEGER,
                     Commands TEXT,
                     Kind_id INTEGER,
-                    Skills TEXT,
                     Foreign KEY (Kind_id) REFERENCES home_animals (Id) ON DELETE CASCADE ON UPDATE CASCADE);";
             command.ExecuteNonQuery();
 
@@ -66,7 +64,6 @@ namespace NurseryServise
                     Birthday INTEGER,
                     Commands TEXT,
                     Kind_id INTEGER,
-                    Skills TEXT,
                     Foreign KEY (Kind_id) REFERENCES home_animals (Id) ON DELETE CASCADE ON UPDATE CASCADE);";
             command.ExecuteNonQuery();
 
@@ -75,7 +72,6 @@ namespace NurseryServise
                     Birthday INTEGER,
                     Commands TEXT,
                     Kind_id INTEGER,
-                    Skills TEXT,
                     Foreign KEY (Kind_id) REFERENCES beast_of_burden (Id) ON DELETE CASCADE ON UPDATE CASCADE);";
             command.ExecuteNonQuery();
 
@@ -84,7 +80,6 @@ namespace NurseryServise
                     Birthday INTEGER,
                     Commands TEXT,
                     Kind_id INTEGER,
-                    Skills TEXT,
                     Foreign KEY (Kind_id) REFERENCES beast_of_burden (Id) ON DELETE CASCADE ON UPDATE CASCADE);";
             command.ExecuteNonQuery();
 
@@ -93,7 +88,6 @@ namespace NurseryServise
                     Birthday INTEGER,
                     Commands TEXT,
                     Kind_id INTEGER,
-                    Skills TEXT,
                     Foreign KEY (Kind_id) REFERENCES beast_of_burden (Id) ON DELETE CASCADE ON UPDATE CASCADE);";
             command.ExecuteNonQuery();
 
