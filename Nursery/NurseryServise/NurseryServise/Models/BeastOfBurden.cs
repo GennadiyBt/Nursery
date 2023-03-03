@@ -1,6 +1,6 @@
 ﻿namespace NurseryServise.Models
 {
-    public abstract class BeastOfBurden : Animal;
+    public abstract class BeastOfBurden : Animal
     {
         protected BeastOfBurden() {
             type = "Beast of burden";

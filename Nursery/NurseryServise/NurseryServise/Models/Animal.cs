@@ -1,4 +1,6 @@
-﻿namespace NurseryServise.Models
+﻿using NurseryServise.Models.Skills;
+
+namespace NurseryServise.Models
 {
     public abstract class Animal
     {
@@ -9,7 +11,7 @@
         protected string name;
         protected int id;
         protected DateTime birthday;
-        protected List<Skill> skills;
+        protected List<ISkill> skills;
 
         public string getType()
         {
@@ -23,7 +25,7 @@
         {
             return kind;
         }
-        public string getKindId()
+        public int getKindId()
         {
             return id_kind;
         }
@@ -51,9 +53,12 @@
         {
             birthday = value;
         }
-        public void addSkill(Skill skill) { }
+        public void addSkill(ISkill skill) 
+        {
+            skills.Add(skill);
+        }
 
-        public List<Skill> getSkills()
+        public List<ISkill> getSkills()
         {
             return skills;
         }
