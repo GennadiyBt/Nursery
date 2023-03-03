@@ -14,6 +14,20 @@ namespace NurseryServise.Models.Designers
     
         }
 
+        public static Animal createNewAnimal(string kind, string name, DateTime date)
+        {
+            switch (kind)
+            {
+                case "Dog": return new Dog();
+                case "Cat": return new Cat();
+                case "Hamster": return new Hamster();
+                case "Hors": return new Hors();
+                case "Camel": return new Camel();
+                case "Donkey": return new Donkey();
+            }
+            return null;
+        }
+
         private static Animal createAnimal(int id_type, int id_kind)
         {
             if (id_type == 1)

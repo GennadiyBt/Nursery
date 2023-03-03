@@ -1,4 +1,7 @@
-﻿using NurseryServise.Models;
+﻿using NurseryServise.Controllers;
+using NurseryServise.Models;
+using NurseryServise.Models.Designers;
+using NurseryServise.Models.Skills;
 using System.Data.SQLite;
 
 namespace NurseryServise.Services.Implements
@@ -14,64 +17,12 @@ namespace NurseryServise.Services.Implements
                 connection.Open();
                 // Прописываем в команду SQL-запрос на добавление данных
                 SQLiteCommand command = new SQLiteCommand(connection);
-                if (item.getTypId() == 1)
-                {
-                    switch (item.getKindId())
-                    {
-                        case 1: 
-                            command.CommandText = "INSERT INTO dog(Name, Birthday, Kind_id) VALUES(@Name, @Birthday, @Kind_id)";
-                            command.Parameters.AddWithValue("@SurName", item.getName());
-                            command.Parameters.AddWithValue("@Birthday", item.getBirthDay().Ticks);
-                            command.Parameters.AddWithValue("@Kind_id", item.getKindId());
-                            // подготовка команды к выполнению
-                            command.Prepare();
-                            // Выполнение команды
-                            return command.ExecuteNonQuery();
-                        case 2:
-                            command.CommandText = "INSERT INTO cat(Name, Birthday, Kind_id) VALUES(@Name, @Birthday, @Kind_id)";
-                            command.Parameters.AddWithValue("@SurName", item.getName());
-                            command.Parameters.AddWithValue("@Birthday", item.getBirthDay().Ticks);
-                            command.Parameters.AddWithValue("@Kind_id", item.getKindId());
-                            command.Prepare();
-                            return command.ExecuteNonQuery();
-
-                        case 3:
-                            command.CommandText = "INSERT INTO hamster(Name, Birthday, Kind_id) VALUES(@Name, @Birthday, @Kind_id)";
-                            command.Parameters.AddWithValue("@SurName", item.getName());
-                            command.Parameters.AddWithValue("@Birthday", item.getBirthDay().Ticks);
-                            command.Parameters.AddWithValue("@Kind_id", item.getKindId());
-                            command.Prepare();
-                            return command.ExecuteNonQuery();
-                    }
-                }
-                else
-                {
-                    switch (item.getKindId())
-                    {
-                        case 1:
-                            command.CommandText = "INSERT INTO hors(Name, Birthday, Kind_id) VALUES(@Name, @Birthday, @Kind_id)";
-                            command.Parameters.AddWithValue("@SurName", item.getName());
-                            command.Parameters.AddWithValue("@Birthday", item.getBirthDay().Ticks);
-                            command.Parameters.AddWithValue("@Kind_id", item.getKindId());
-                            command.Prepare();
-                            return command.ExecuteNonQuery();
-                        case 2:
-                            command.CommandText = "INSERT INTO camel(Name, Birthday, Kind_id) VALUES(@Name, @Birthday, @Kind_id)";
-                            command.Parameters.AddWithValue("@SurName", item.getName());
-                            command.Parameters.AddWithValue("@Birthday", item.getBirthDay().Ticks);
-                            command.Parameters.AddWithValue("@Kind_id", item.getKindId());
-                            command.Prepare();
-                            return command.ExecuteNonQuery();
-
-                        case 3:
-                            command.CommandText = "INSERT INTO donkey(Name, Birthday, Kind_id) VALUES(@Name, @Birthday, @Kind_id)";
-                            command.Parameters.AddWithValue("@SurName", item.getName());
-                            command.Parameters.AddWithValue("@Birthday", item.getBirthDay().Ticks);
-                            command.Parameters.AddWithValue("@Kind_id", item.getKindId());
-                            command.Prepare();
-                            return command.ExecuteNonQuery();
-                    }
-                }
+                command.CommandText = "INSERT INTO " + item.kind + "(Name, Birthday, Kind_id) VALUES(@Name, @Birthday, @Kind_id)"; 
+                command.Parameters.AddWithValue("@Name", item.getName());
+                command.Parameters.AddWithValue("@Birthday", item.getBirthDay().Ticks);
+                command.Parameters.AddWithValue("@Kind_id", item.getKindId());
+                command.Prepare();
+                return command.ExecuteNonQuery();
             }
             catch
             {
@@ -81,61 +32,19 @@ namespace NurseryServise.Services.Implements
             {
                 connection.Close();
             }
-            return 0;
         }
 
-        public int Delete(int type_id, int kind_id, int id)
+        public int Delete(string kind, int id)
         {
             SQLiteConnection connection = new SQLiteConnection(connectionString);
             try
             {
                 connection.Open();
-                // Прописываем в команду SQL-запрос на добавление данных
                 SQLiteCommand command = new SQLiteCommand(connection);
-                if (type_id == 1)
-                {
-                    switch (kind_id)
-                    {
-                        case 1:
-                            command.CommandText = "DELETE FROM dog WHERE Id=@Id";
-                            command.Parameters.AddWithValue("@Id", id);
-                            command.Prepare();
-                            return command.ExecuteNonQuery();
-                        case 2:
-                            command.CommandText = "DELETE FROM cat WHERE Id=@Id";
-                            command.Parameters.AddWithValue("@Id", id);
-                            command.Prepare();
-                            return command.ExecuteNonQuery();
-
-                        case 3:
-                            command.CommandText = "DELETE FROM hamster WHERE Id=@Id";
-                            command.Parameters.AddWithValue("@Id", id);
-                            command.Prepare();
-                            return command.ExecuteNonQuery();
-                    }
-                }
-                else
-                {
-                    switch (kind_id)
-                    {
-                        case 1:
-                            command.CommandText = "DELETE FROM hors WHERE Id=@Id";
-                            command.Parameters.AddWithValue("@Id", id);
-                            command.Prepare();
-                            return command.ExecuteNonQuery();
-                        case 2:
-                            command.CommandText = "DELETE FROM camel WHERE Id=@Id";
-                            command.Parameters.AddWithValue("@Id", id);
-                            command.Prepare();
-                            return command.ExecuteNonQuery();
-
-                        case 3:
-                            command.CommandText = "DELETE FROM donkey WHERE Id=@Id";
-                            command.Parameters.AddWithValue("@Id", id);
-                            command.Prepare();
-                            return command.ExecuteNonQuery();
-                    }
-                }
+                command.CommandText = "DELETE FROM "+ kind + " WHERE Id=@Id";
+                command.Parameters.AddWithValue("@Id", id);
+                command.Prepare();
+                return command.ExecuteNonQuery();
             }
             catch
             {
@@ -145,51 +54,93 @@ namespace NurseryServise.Services.Implements
             {
                 connection.Close();
             }
-            return 0;
         }
-    }
 
-        public List<Animal> GetAll()
+
+        public List<Animal> GetAll(string kind)
         {
-        SQLiteConnection connection = new SQLiteConnection(connectionString);
-        List<Client> list = new List<Client>();
-        try
-        {
-            connection.Open();
-            SQLiteCommand command = new SQLiteCommand(connection);
-            command.CommandText = "SELECT * FROM clients";
-            command.Prepare();
-            SQLiteDataReader reader = command.ExecuteReader();
-            while (reader.Read())
+            SQLiteConnection connection = new SQLiteConnection(connectionString);
+            List<Animal> list = new List<Animal>();
+            try
             {
-                Client client = new Client
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT * FROM " + kind;
+                command.Prepare();
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    ClientId = reader.GetInt32(0),
-                    Document = reader.GetString(1),
-                    SurName = reader.GetString(2),
-                    FirstName = reader.GetString(3),
-                    Patronymic = reader.GetString(4),
-                    Birthday = new DateTime(reader.GetInt64(5))
-                };
-
-                list.Add(client);
+                     int Id = reader.GetInt32(0);
+                     string name = reader.GetString(1);
+                     DateTime Birthday = new DateTime(reader.GetInt64(2));
+                     Animal animal = Constructor.createNewAnimal(kind, name, Birthday);
+                     list.Add(animal);
+                }
+                return list;
+            }
+            finally
+            {
+                connection.Close();
             }
         }
-        finally
-        {
-            connection.Close();
-        }
-        return list;
-    }
+        
 
-        public Animal GetById(int animal_id)
+        public Animal GetById(string kind,int id)
         {
-            throw new NotImplementedException();
+            SQLiteConnection connection = new SQLiteConnection(connectionString);
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT * FROM " + kind +" WHERE Id=@Id";
+                command.Parameters.AddWithValue("@Id", id);
+                command.Prepare();
+                SQLiteDataReader reader = command.ExecuteReader();
+                if (reader.Read()) // Если удалось что-то прочитать
+                {
+                    // возвращаем прочитанное
+                    int Id = reader.GetInt32(0);
+                    string name = reader.GetString(1);
+                    DateTime Birthday = new DateTime(reader.GetInt64(2));
+                    Animal animal = Constructor.createNewAnimal(kind, name, Birthday);
+                    return animal;
+                }
+                else
+                {
+                    // Не нашлась запись по идентификатору
+                    return null;
+                }
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
-        public int Train(int animal_id)
+        public int Train(string kind, int id, ISkill _skill)
         {
-            throw new NotImplementedException();
+            SQLiteConnection connection = new SQLiteConnection(connectionString);
+            try
+            {   
+                Animal trainingAnimal = GetById(kind, id);
+                foreach (ISkill item in trainingAnimal.getSkills())
+                {
+                    if (_skill.Equals(item))
+                    {
+                        Console.WriteLine("Данное умение уже изучено");
+                        return 1;
+                    }
+                }
+                trainingAnimal.addSkill(_skill);
+                Console.WriteLine("Вы изучили новое умение");
+                new SkillController(new SkillRepository).CreateSkill(_skill);
+                return new SkillController(new SkillRepository).CreateSkill(_skill);
+
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ namespace NurseryServise
             //Процедура создания БД, таблиц, заполнение базовых. Процедура проводится при отсутствии БД
             //ConfigureSqlLiteConnection();
         }
-
+        
         private static void ConfigureSqlLiteConnection()
         {
             const string connectionString = "Data Source = nursery.db; Version = 3; Pooling = true; Max Pool Size = 100;";

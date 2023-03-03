@@ -53,7 +53,10 @@ namespace NurseryServise.Models
         {
             birthday = value;
         }
-        public void addSkill(ISkill skill) { }
+        public void addSkill(ISkill skill) 
+        {
+            skills.Add(skill);
+        }
 
         public List<ISkill> getSkills()
         {

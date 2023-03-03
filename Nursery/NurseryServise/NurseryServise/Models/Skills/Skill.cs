@@ -2,8 +2,7 @@
 {
     public class Skill : ISkill
     {
-        protected string skill_name { get; set; }
-
-        
+        internal string skill_name { get; set; }
+   
     }
 }

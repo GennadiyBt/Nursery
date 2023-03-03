@@ -27,18 +27,23 @@ namespace NurseryServise.Controllers
         {   
             InputData _inputData = new InputData();
             _inputData.input();
-            Animal animal = Constructor.createNewAnimal(_inputData.type, _inputData.kind, _inputData.animalName, _inputData.birsday);
+            Animal animal = Constructor.createNewAnimal(_inputData.id_type, _inputData.id_kind, _inputData.animalName, _inputData.birsday);
             return _animalRepository.Create(animal);
         }
 
-        public ActionResult<int> Delete(int id)
+        public ActionResult<int> Delete(string kind, int id)
         {
-            return _animalRepository.Delete(id);
+            return _animalRepository.Delete(kind, id);
         }
 
-        public ActionResult<List<Animal>> GetAll()
+        public ActionResult<List<Animal>> GetAll(string kind)
         {
-            return _animalRepository.GetAll();
+            return _animalRepository.GetAll(kind);
+        }
+
+        public ActionResult<string> GetSkills(Animal item) 
+        {
+            return _animalRepository.GetSkills(item);
         }
         
     }
