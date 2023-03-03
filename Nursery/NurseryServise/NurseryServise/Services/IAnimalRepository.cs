@@ -7,7 +7,7 @@ namespace NurseryServise.Services
     public interface IAnimalRepository 
     {
         int Create(Animal entity);
-        int Train(string kind, int item, ISkill skill);
+        int Train(Animal animal, ISkill skill);
         string GetSkills(Animal animal);
         List<Animal> GetAll(string kynd);
         Animal GetById(string kind, int id);

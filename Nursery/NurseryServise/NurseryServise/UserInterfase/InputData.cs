@@ -8,27 +8,13 @@ namespace NurseryServise.UserInterfase
         internal DateTime birsday;
         internal int id_type;
         internal int id_kind;
+        internal string kind;
 
         public void input()
         {
-            while (true)
-            {
-                Console.WriteLine("Введите тип животного:\n1 - домашнее животное\n2 - вьючное животное");
-                id_type = Convert.ToInt32(Console.ReadLine());
-                if (id_type == 1)
-                {
-                    Console.WriteLine("Введите вид животного:\n1 - собака\n2 - кошка\n3 - хомяк");
-                    id_kind = Convert.ToInt32(Console.ReadLine());
-                    if(id_kind == 1 || id_kind == 2 || id_kind == 3) { break; }
-                }
-                else if (id_type == 2)
-                {
-                    Console.WriteLine("Введите вид животного:\n1 - лошадь\n2 - верблюд\n3 - осел");
-                    id_kind = Convert.ToInt32(Console.ReadLine());
-                    if (id_kind == 1 || id_kind == 2 || id_kind == 3) { break; }
-                }
-                else {Console.WriteLine("Введите корректное значение");}
-            }
+            string key = Menu.listAnimal();
+            kind = key;
+
             while (true)
             {
                 Console.WriteLine("Введите имя животного:");

@@ -119,12 +119,11 @@ namespace NurseryServise.Services.Implements
             }
         }
 
-        public int Train(string kind, int id, ISkill _skill)
+        public int Train(Animal trainingAnimal, ISkill _skill)
         {
             try
             {
                 string listSkills = null;
-                Animal trainingAnimal = GetById(kind, id);
                 foreach (ISkill item in trainingAnimal.getSkills())
                 {
                     if (_skill.Equals(item))

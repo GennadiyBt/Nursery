@@ -14,35 +14,35 @@ namespace NurseryServise.Controllers
         {
             _animalRepository = animalRepository;
         }
-        public ActionResult<int> Train(string kind, int id, ISkill _skill)
+        public int Train(Animal animal, ISkill _skill)
         {
-            return _animalRepository.Train(kind, id, _skill);
+            return _animalRepository.Train(animal, _skill);
         }
 
-        public ActionResult<Animal> GetById(string kind, int id)
+        public Animal GetById(string kind, int id)
         {
             return _animalRepository.GetById(kind, id);
         }
 
-        public ActionResult<int> Create()
+        public int Create()
         {   
             InputData _inputData = new InputData();
             _inputData.input();
-            Animal animal = Constructor.createNewAnimal(_inputData.id_type, _inputData.id_kind, _inputData.animalName, _inputData.birsday);
+            Animal animal = Constructor.createNewAnimal(_inputData.kind, _inputData.animalName, _inputData.birsday);
             return _animalRepository.Create(animal);
         }
 
-        public ActionResult<int> Delete(string kind, int id)
+         public int Delete(string kind, int id)
         {
             return _animalRepository.Delete(kind, id);
         }
 
-        public ActionResult<List<Animal>> GetAll(string kind)
+        public List<Animal> GetAll(string kind)
         {
             return _animalRepository.GetAll(kind);
         }
 
-        public ActionResult<string> GetSkills(Animal item) 
+        public string GetSkills(Animal item) 
         {
             return _animalRepository.GetSkills(item);
         }

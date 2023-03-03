@@ -62,5 +62,10 @@ namespace NurseryServise.Models
         {
             return skills;
         }
+
+        public override string ToString()
+        {
+            return name + ", " + birthday;
+        }
     }
 }
