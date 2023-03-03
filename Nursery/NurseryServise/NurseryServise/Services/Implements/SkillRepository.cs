@@ -7,7 +7,7 @@ namespace NurseryServise.Services.Implements
     {
         private const string connectionString = "Data Source = nursery.db; Version = 3; Pooling = true; Max Pool Size = 100;";
 
-        public int Create(string name)
+        public int CreateSkill(ISkill skill)
         {
             SQLiteConnection connection = new SQLiteConnection(connectionString);
             try
@@ -15,7 +15,7 @@ namespace NurseryServise.Services.Implements
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO skills(Skill_name) VALUES (@Skill_name)";
-                command.Parameters.AddWithValue("@Skill_name", name);
+                command.Parameters.AddWithValue("@Skill_name", skill.ToString());
                 command.Prepare();
                 return command.ExecuteNonQuery();
             }

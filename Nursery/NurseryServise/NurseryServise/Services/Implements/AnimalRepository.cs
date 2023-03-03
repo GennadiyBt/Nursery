@@ -1,4 +1,5 @@
-﻿using NurseryServise.Controllers;
+﻿using Microsoft.Azure.Management.Storage.Fluent.Models;
+using NurseryServise.Controllers;
 using NurseryServise.Models;
 using NurseryServise.Models.Designers;
 using NurseryServise.Models.Skills;
@@ -99,15 +100,16 @@ namespace NurseryServise.Services.Implements
                 if (reader.Read()) // Если удалось что-то прочитать
                 {
                     // возвращаем прочитанное
-                    int Id = reader.GetInt32(0);
                     string name = reader.GetString(1);
                     DateTime Birthday = new DateTime(reader.GetInt64(2));
                     Animal animal = Constructor.createNewAnimal(kind, name, Birthday);
+                    animal.setId(id);
                     return animal;
                 }
                 else
                 {
                     // Не нашлась запись по идентификатору
+                    Console.WriteLine("Указанное животное отсутствует в базе.");
                     return null;
                 }
             }
@@ -119,9 +121,9 @@ namespace NurseryServise.Services.Implements
 
         public int Train(string kind, int id, ISkill _skill)
         {
-            SQLiteConnection connection = new SQLiteConnection(connectionString);
             try
-            {   
+            {
+                string listSkills = null;
                 Animal trainingAnimal = GetById(kind, id);
                 foreach (ISkill item in trainingAnimal.getSkills())
                 {
@@ -132,10 +134,65 @@ namespace NurseryServise.Services.Implements
                     }
                 }
                 trainingAnimal.addSkill(_skill);
+                
+                listSkills +=", " + _skill.ToString();
+                
                 Console.WriteLine("Вы изучили новое умение");
-                new SkillController(new SkillRepository).CreateSkill(_skill);
-                return new SkillController(new SkillRepository).CreateSkill(_skill);
+                try
+                {
+                    // Вносим новое умение в базу
+                    new SkillRepository().CreateSkill(_skill);
+                }
+                catch { Console.WriteLine("Данное умение уже есть в общей базе умений"); }
 
+                finally
+                {
+                    SQLiteConnection connection = new SQLiteConnection(connectionString);
+                    try
+                    {
+                        connection.Open();
+                        // Добавляем новое умение в БД к записи животного
+                        SQLiteCommand command = new SQLiteCommand(connection);
+                        command.CommandText = "INSERT INTO " + trainingAnimal.kind + "(Commands) VALUES(@Commands)";
+                        command.Parameters.AddWithValue("@Commands", listSkills);
+                        command.Prepare();
+                        command.ExecuteNonQuery();
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+                return 1;
+            }
+            catch 
+            {
+                return -1;
+            }
+        }
+
+        public string GetSkills(Animal animal)
+        {
+            SQLiteConnection connection = new SQLiteConnection(connectionString);
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT * FROM " + animal.kind + " WHERE Id=@Id";
+                command.Parameters.AddWithValue("@Id", animal.getId());
+                command.Prepare();
+                SQLiteDataReader reader = command.ExecuteReader();
+                if (reader.Read()) // Если удалось что-то прочитать
+                {
+                    // возвращаем прочитанное
+                    string listSkill = reader.GetString(3);
+                    return listSkill;
+                }
+                else
+                {
+                    // Список умений пуст
+                    return "У данного животного нет умений";
+                }
             }
             finally
             {

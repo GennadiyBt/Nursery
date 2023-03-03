@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NurseryServise.Models;
 using NurseryServise.Models.Designers;
+using NurseryServise.Models.Skills;
 using NurseryServise.Services;
 using NurseryServise.UserInterfase;
 
@@ -13,14 +14,14 @@ namespace NurseryServise.Controllers
         {
             _animalRepository = animalRepository;
         }
-        public ActionResult<int> Train(int animal_id)
+        public ActionResult<int> Train(string kind, int id, ISkill _skill)
         {
-            return _animalRepository.Train(animal_id);
+            return _animalRepository.Train(kind, id, _skill);
         }
 
-        public ActionResult<Animal> GetById(int id)
+        public ActionResult<Animal> GetById(string kind, int id)
         {
-            return _animalRepository.GetById(id);
+            return _animalRepository.GetById(kind, id);
         }
 
         public ActionResult<int> Create()
