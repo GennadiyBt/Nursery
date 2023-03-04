@@ -11,6 +11,6 @@ namespace NurseryServise.Services
         string GetSkills(Animal animal);
         List<Animal> GetAll(string kynd);
         Animal GetById(string kind, int id);
-        int Delete(string kind, int id);
+        int Delete(Animal animal);
     }
 }

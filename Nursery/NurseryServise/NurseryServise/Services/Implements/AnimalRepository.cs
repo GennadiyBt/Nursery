@@ -35,15 +35,15 @@ namespace NurseryServise.Services.Implements
             }
         }
 
-        public int Delete(string kind, int id)
+        public int Delete(Animal _animal)
         {
             SQLiteConnection connection = new SQLiteConnection(connectionString);
             try
             {
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "DELETE FROM "+ kind + " WHERE Id=@Id";
-                command.Parameters.AddWithValue("@Id", id);
+                command.CommandText = "DELETE FROM "+ _animal.kind + " WHERE Id=@Id";
+                command.Parameters.AddWithValue("@Id", _animal.getId());
                 command.Prepare();
                 return command.ExecuteNonQuery();
             }
@@ -86,7 +86,7 @@ namespace NurseryServise.Services.Implements
         }
         
 
-        public Animal GetById(string kind,int id)
+        public Animal GetById(string kind, int id)
         {
             SQLiteConnection connection = new SQLiteConnection(connectionString);
             try
