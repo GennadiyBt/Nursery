@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NurseryServise.Models;
 using NurseryServise.Models.Designers;
+using NurseryServise.Models.Skills;
 using NurseryServise.Services;
 using NurseryServise.UserInterfase;
 
@@ -13,35 +14,35 @@ namespace NurseryServise.Controllers
         {
             _animalRepository = animalRepository;
         }
-        public ActionResult<int> Train(int animal_id)
+        public int Train(Animal animal, ISkill _skill)
         {
-            return _animalRepository.Train(animal_id);
+            return _animalRepository.Train(animal, _skill);
         }
 
-        public ActionResult<Animal> GetById(int id)
+        public Animal GetById(string kind, int id)
         {
-            return _animalRepository.GetById(id);
+            return _animalRepository.GetById(kind, id);
         }
 
-        public ActionResult<int> Create()
+        public int Create()
         {   
             InputData _inputData = new InputData();
             _inputData.input();
-            Animal animal = Constructor.createNewAnimal(_inputData.id_type, _inputData.id_kind, _inputData.animalName, _inputData.birsday);
+            Animal animal = Constructor.createNewAnimal(_inputData.kind, _inputData.animalName, _inputData.birsday);
             return _animalRepository.Create(animal);
         }
 
-        public ActionResult<int> Delete(string kind, int id)
+         public int Delete(string kind, int id)
         {
             return _animalRepository.Delete(kind, id);
         }
 
-        public ActionResult<List<Animal>> GetAll(string kind)
+        public List<Animal> GetAll(string kind)
         {
             return _animalRepository.GetAll(kind);
         }
 
-        public ActionResult<string> GetSkills(Animal item) 
+        public string GetSkills(Animal item) 
         {
             return _animalRepository.GetSkills(item);
         }

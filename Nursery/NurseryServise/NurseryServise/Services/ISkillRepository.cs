@@ -7,7 +7,7 @@ namespace NurseryServise.Services
     {
         List<Skill> GetAll();
         Skill GetByName(string name);
-        int Create(string name);
+        int CreateSkill(ISkill skill);
 
         int Delete(string name);
     }
