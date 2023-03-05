@@ -2,10 +2,12 @@
 {
     public class Donkey : BeastOfBurden 
     {
-        public Donkey()
+        public Donkey(string name, DateTime birthday)
         {
             kind = "Donkey";
             id_kind = 3;
+            this.name = name;
+            this.birthday = birthday;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Azure.Management.Storage.Fluent.Models;
 using NurseryServise.Controllers;
 using NurseryServise.Models;
+using System.Linq.Expressions;
 
 namespace NurseryServise.UserInterfase
 {
@@ -11,7 +12,7 @@ namespace NurseryServise.UserInterfase
         internal string kind;
         internal AnimalController animalController { get; set; }
 
-        public View() { }
+        
         public View(AnimalController animalController) 
         {
             this.animalController = animalController;
@@ -35,7 +36,9 @@ namespace NurseryServise.UserInterfase
         public void inputAnimal()
         {
             string key = inputKind();
-            kind = key;
+            if (key != "Back") 
+            {
+                kind = key;
 
             while (true)
             {
@@ -45,7 +48,7 @@ namespace NurseryServise.UserInterfase
                    animalName = Console.ReadLine();
                     break;
                 }
-                catch (InvalidCastException e)
+                catch (NullReferenceException)
                 { Console.WriteLine("Введите корректные данные"); }
             }
 
@@ -53,7 +56,7 @@ namespace NurseryServise.UserInterfase
             while (true)
             {
                 try
-                {
+                {   // Проверка валидности введенной даты происходит при создании экземпляра DateTime                 
                     Console.WriteLine("Введите дату рождения животного:\n число:");
                     int day = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("месяц:");
@@ -63,8 +66,9 @@ namespace NurseryServise.UserInterfase
                     birsday = new DateTime(year, month, day);
                     break;
                 }
-                catch (InvalidCastException e)
-                { Console.WriteLine("Введите корректные данные"); }
+                catch (Exception)
+                { Console.WriteLine("Введите корректные данные"); }                
+            }
             }
 
         }
@@ -75,13 +79,18 @@ namespace NurseryServise.UserInterfase
             {
                 Console.WriteLine("Виды животных:\n - Dog\n - Cat\n - Hamster\n - Hors\n - Camel\n - Donkey\n" +
                 "Введите вид животного или Back для возврата в предыдущее меню");
-                string kind = Console.ReadLine();
-                if (kind == "Back") { return kind; }
-                if (kind != "Dog" && kind != "Cat" && kind != "Hamster" && kind != "Hors" && kind != "Camel" && kind != "Donkey")
+                try
                 {
-                    Console.WriteLine("Такого варианта нет, попробуйте еще.");
+                    string kind = Console.ReadLine();
+                    if (kind == "Back") { return kind; }
+                    if (kind != "Dog" && kind != "Cat" && kind != "Hamster" && kind != "Hors" && kind != "Camel" && kind != "Donkey")
+                    {
+                        Console.WriteLine("Такого варианта нет, попробуйте еще.");
+                    }
+                    else { return kind; }
                 }
-                else { return kind; }
+                catch (NullReferenceException)
+                { Console.WriteLine("Вы ничего не указали. Попробуйте еще раз."); }
             }
         }
 

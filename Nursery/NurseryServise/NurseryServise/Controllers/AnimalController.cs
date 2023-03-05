@@ -24,9 +24,8 @@ namespace NurseryServise.Controllers
             return _animalRepository.GetById(kind, id);
         }
 
-        public int Create()
+        public int Create(View _view)
         {   
-            View _view = new View();
             _view.inputAnimal();
             Animal animal = Constructor.createNewAnimal(_view.kind, _view.animalName, _view.birsday);
             return _animalRepository.Create(animal);

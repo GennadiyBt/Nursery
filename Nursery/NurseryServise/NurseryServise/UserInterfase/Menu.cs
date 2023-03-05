@@ -5,7 +5,7 @@ using NurseryServise.Services;
 
 namespace NurseryServise.UserInterfase
 {
-    public abstract class Menu
+    public class Menu
     {
         AnimalController animalController { get; set; }
 
@@ -15,7 +15,7 @@ namespace NurseryServise.UserInterfase
         }
         public void start()
         {
-            IView _view = new View(animalController);
+            View _view = new View(animalController);
             Boolean flag = true;
             while (flag)
             {
@@ -27,15 +27,16 @@ namespace NurseryServise.UserInterfase
                     case 1:
                         Console.WriteLine("Просмотр животных по видам.");
                         string key = _view.inputKind();
-                        if (key == "Back") { break; }
-                        List<Animal> animals = animalController.GetAll(key);
+                        if (key.Equals("Back")) { break; }
+
+                        List<Animal> animals = animalController.GetAll(key);                        
                         _view.listOfAnimals(animals);
                         break;
                     case 2:
                         // В языке C#  try-with-resources конструкция не предусмотрена, используем using
                         using (Counter counter = new Counter())
                         {
-                            animalController.Create();
+                            animalController.Create(_view);
                             break;
                         }
                         
@@ -47,10 +48,13 @@ namespace NurseryServise.UserInterfase
                         string skill;
                         while (true)
                         {
-                            skill = Console.ReadLine();
-                            if (skill != null) { break; }
-                            else { Console.WriteLine("Вы ввели пустую строку. Попробуйте еще раз."); }
-                           
+                            try
+                            {
+                                skill = Console.ReadLine();
+                                break;
+                            }
+                            catch (NullReferenceException)
+                            { Console.WriteLine("Вы ничего не указали. Попробуйте еще раз."); }
                         }
                         ISkill newSkill = new Skill(skill);
                         animalController.Train(_view.choice(), newSkill);

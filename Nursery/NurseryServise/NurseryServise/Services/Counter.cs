@@ -7,7 +7,7 @@
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Resurse closed");
         }
     }
 }

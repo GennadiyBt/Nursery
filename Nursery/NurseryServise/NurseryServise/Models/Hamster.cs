@@ -2,10 +2,12 @@
 {
     public class Hamster : HomeAnimal
     {
-        public Hamster() 
+        public Hamster(string name, DateTime birthday)
         {
-            kind = "Hamster";
+            kind = "Hamcter";
             id_kind = 3;
+            this.name = name;
+            this.birthday = birthday;
         }
     }
 }

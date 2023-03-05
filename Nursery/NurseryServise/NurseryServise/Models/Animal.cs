@@ -4,14 +4,14 @@ namespace NurseryServise.Models
 {
     public abstract class Animal
     {
-        protected string type;
+        protected string? type;
         protected int id_type;
-        public string kind;
+        public string? kind;
         protected int id_kind;
-        protected string name;
+        protected string? name;
         protected int id;
         protected DateTime birthday;
-        protected List<ISkill> skills;
+        protected List<ISkill>? skills;
 
         public string getType()
         {
@@ -65,7 +65,7 @@ namespace NurseryServise.Models
 
         public override string ToString()
         {
-            return name + ", " + birthday;
+            return "Id: " + id + " Имя: " + name + " Дата рождения: " + birthday.ToShortDateString();
         }
     }
 }

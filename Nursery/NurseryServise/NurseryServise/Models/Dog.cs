@@ -4,10 +4,12 @@ namespace NurseryServise.Models
 {
     public class Dog : HomeAnimal
     {
-        public Dog()
+        public Dog(string name, DateTime birthday)
         {
             kind = "Dog";
             id_kind = 1;
+            this.name = name;
+            this.birthday = birthday;
         }
     }
 }

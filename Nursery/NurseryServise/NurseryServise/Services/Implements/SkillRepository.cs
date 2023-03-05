@@ -65,10 +65,7 @@ namespace NurseryServise.Services.Implements
                 SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    Skill skill = new Skill
-                    {
-                        skill_name = reader.GetString(0)
-                    };
+                    Skill skill = new Skill(reader.GetString(0));
                     list.Add(skill);
                 }
             }
@@ -79,7 +76,7 @@ namespace NurseryServise.Services.Implements
             return list;
         }
 
-        public Skill GetByName(string name)
+        public Skill? GetByName(string name)
         {
             SQLiteConnection connection = new SQLiteConnection(connectionString);
             try
@@ -92,10 +89,7 @@ namespace NurseryServise.Services.Implements
                 SQLiteDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
-                    return new Skill
-                    {
-                        skill_name = reader.GetString(0)
-                    };
+                    return new Skill(reader.GetString(0));
                 }
                 else
                 {

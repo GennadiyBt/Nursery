@@ -1,6 +1,4 @@
-﻿using Microsoft.Azure.Management.Storage.Fluent.Models;
-using NurseryServise.Controllers;
-using NurseryServise.Models;
+﻿using NurseryServise.Models;
 using NurseryServise.Models.Designers;
 using NurseryServise.Models.Skills;
 using System.Data.SQLite;
