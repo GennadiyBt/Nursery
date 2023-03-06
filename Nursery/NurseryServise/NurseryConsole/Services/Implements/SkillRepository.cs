@@ -10,7 +10,7 @@ namespace NurseryConsole.Services.Implements
 {
     public class SkillRepository : ISkillRepository
     {
-        private const string connectionString = "Data Source = nursery.db; Version = 3; Pooling = true; Max Pool Size = 100;";
+        private const string connectionString = "Data Source = D:\\Итоговый проект\\Nursery\\NurseryServise\\NurseryConsole\\DataBase\\NurseryServise.db; Version = 3; Pooling = true; Max Pool Size = 100;";
 
         public int CreateSkill(ISkill skill)
         {

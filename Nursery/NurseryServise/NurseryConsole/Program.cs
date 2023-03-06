@@ -10,7 +10,7 @@ namespace NurseryConsole
         public static void Main(string[] args)
         {
             //Процедура создания БД, таблиц, заполнение базовых. Процедура проводится при отсутствии БД
-            //ConfigureSqlLiteConnection();
+            ConfigureSqlLiteConnection();
             AnimalRepository _animalRepositori = new AnimalRepository();
             AnimalController _animalController = new AnimalController(_animalRepositori);
             new Menu(_animalController).start();
@@ -18,7 +18,7 @@ namespace NurseryConsole
 
         private static void ConfigureSqlLiteConnection()
         {
-            const string connectionString = "Data Source = D:\\Итоговый проект\\Nursery\\NurseryServise\\NurseryServise\\nursery.db; Version = 3; Pooling = true; Max Pool Size = 100;";
+            const string connectionString = "Data Source = D:\\Итоговый проект\\Nursery\\NurseryServise\\NurseryConsole\\DataBase\\NurseryServise.db; Version = 3; Pooling = true; Max Pool Size = 100;";
             SQLiteConnection connection = new SQLiteConnection(connectionString);
             connection.Open();
             PrepareScheme(connection);

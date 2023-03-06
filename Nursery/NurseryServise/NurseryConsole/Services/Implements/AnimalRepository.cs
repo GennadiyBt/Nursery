@@ -12,7 +12,7 @@ namespace NurseryConsole.Services.Implements
 {
     public class AnimalRepository : IAnimalRepository
     {
-        private const string connectionString = "D:\\Итоговый проект\\Nursery\\NurseryServise\\NurseryServise\\nursery.db; Version = 3; Pooling = true; Max Pool Size = 100;";
+        private const string connectionString = "Data Source = D:\\Итоговый проект\\Nursery\\NurseryServise\\NurseryConsole\\DataBase\\NurseryServise.db; Version = 3; Pooling = true; Max Pool Size = 100;";
         public int Create(Animal item)
         {
             SQLiteConnection connection = new SQLiteConnection(connectionString);
