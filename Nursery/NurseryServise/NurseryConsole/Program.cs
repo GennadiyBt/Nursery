@@ -10,7 +10,7 @@ namespace NurseryConsole
         public static void Main(string[] args)
         {
             //Процедура создания БД, таблиц, заполнение базовых. Процедура проводится при отсутствии БД
-            ConfigureSqlLiteConnection();
+            //ConfigureSqlLiteConnection();
             AnimalRepository _animalRepositori = new AnimalRepository();
             AnimalController _animalController = new AnimalController(_animalRepositori);
             new Menu(_animalController).start();

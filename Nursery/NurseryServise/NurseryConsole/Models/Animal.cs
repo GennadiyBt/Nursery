@@ -72,5 +72,15 @@ namespace NurseryConsole.Models
         {
             return "Id: " + id + " Имя: " + name + " Дата рождения: " + birthday.ToShortDateString();
         }
+
+        public void registerSkils()
+        {
+            Console.WriteLine("Перечень умений: ");
+            foreach (ISkill skill in skills)
+            {
+                Console.Write(skill.ToString()+"\n");
+            }
+            Console.WriteLine();
+        }
     }
 }

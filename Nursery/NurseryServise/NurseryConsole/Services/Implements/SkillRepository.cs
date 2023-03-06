@@ -81,7 +81,7 @@ namespace NurseryConsole.Services.Implements
             return list;
         }
 
-        public Skill? GetByName(string name)
+        public Skill GetByName(string name)
         {
             SQLiteConnection connection = new SQLiteConnection(connectionString);
             try

@@ -1,10 +1,5 @@
 ﻿using NurseryConsole.Controllers;
 using NurseryConsole.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NurseryConsole.UserInterfase
 {
@@ -26,7 +21,6 @@ namespace NurseryConsole.UserInterfase
         {
             string kind;
             int id;
-            //Animal animal;
 
             Console.WriteLine("Выберите животное по виду и  индивидуальному номеру в указанном виде.\n Введите вид:");
             kind = inputKind();

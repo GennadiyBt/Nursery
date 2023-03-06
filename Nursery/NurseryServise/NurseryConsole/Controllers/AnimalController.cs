@@ -3,11 +3,6 @@ using NurseryConsole.Models.Desingers;
 using NurseryConsole.Models.Skills;
 using NurseryConsole.Services;
 using NurseryConsole.UserInterfase;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NurseryConsole.Controllers
 {
@@ -18,9 +13,9 @@ namespace NurseryConsole.Controllers
         {
             _animalRepository = animalRepository;
         }
-        public int Train(Animal animal, ISkill _skill)
+        public int Train(Animal animal, ISkill _skill, string listSkills)
         {
-            return _animalRepository.Train(animal, _skill);
+            return _animalRepository.Train(animal, _skill, listSkills);
         }
 
         public Animal GetById(string kind, int id)
@@ -45,10 +40,7 @@ namespace NurseryConsole.Controllers
             return _animalRepository.GetAll(kind);
         }
 
-        public string GetSkills(Animal item)
-        {
-            return _animalRepository.GetSkills(item);
-        }
+        
 
     }
 }

@@ -78,8 +78,10 @@ namespace NurseryConsole.Services.Implements
                     string name = reader.GetString(1);
                     DateTime Birthday = new DateTime(reader.GetInt64(2));
                     Animal animal = Constructor.createNewAnimal(kind, name, Birthday);
+                    animal.setId(Id);
                     list.Add(animal);
                 }
+                if (list.Count == 0) { Console.WriteLine("Животные данного вида в базе отсутствуют"); }
                 return list;
             }
             finally
@@ -107,6 +109,17 @@ namespace NurseryConsole.Services.Implements
                     DateTime Birthday = new DateTime(reader.GetInt64(2));
                     Animal animal = Constructor.createNewAnimal(kind, name, Birthday);
                     // Вытащить список скилов как строку, разбить по пробелам, создать объекты скилов и сложить в список
+                    try
+                    {
+                        string skill = reader.GetString(3);
+                        string[] skillList = skill.Split(" ");
+                        for (int i = 0; i < skillList.Length; i++)
+                        {
+                            ISkill newSkill = new Skill(skillList[i]);
+                            animal.addSkill(newSkill);
+                        }
+                    }
+                    catch { Console.WriteLine("У данного животного умения отсутствуют"); }
 
                     animal.setId(id);
                     return animal;
@@ -124,11 +137,10 @@ namespace NurseryConsole.Services.Implements
             }
         }
 
-        public int Train(Animal trainingAnimal, ISkill _skill)
+        public int Train(Animal trainingAnimal, ISkill _skill, string listSkills)
         {
             try
-            {
-                string listSkills = "";
+            {               
                 foreach (ISkill item in trainingAnimal.getSkills())
                 {
                     Console.WriteLine("Point1");
@@ -139,7 +151,7 @@ namespace NurseryConsole.Services.Implements
                     }
                 }
                 trainingAnimal.addSkill(_skill);
-                listSkills += _skill.ToString() + " ";
+                listSkills += (" " +_skill.ToString());
 
                 Console.WriteLine("Вы изучили новое умение");
                 try
@@ -178,38 +190,6 @@ namespace NurseryConsole.Services.Implements
             }
         }
 
-        public string GetSkills(Animal animal)
-        {
-            SQLiteConnection connection = new SQLiteConnection(connectionString);
-            try
-            {
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand(connection);
-                command.CommandText = "SELECT * FROM " + animal.kind + " WHERE Id=@Id";
-                command.Parameters.AddWithValue("@Id", animal.getId());
-                command.Prepare();
-                SQLiteDataReader reader = command.ExecuteReader();
-                if (reader.Read()) // Если удалось что-то прочитать
-                {
-                    try
-                    {
-                        // возвращаем прочитанное
-                        string listSkill = reader.GetString(3);
-                        return listSkill;
-                    }
-
-                    catch (IOException) //InvalidCastException)
-                    {
-                        // Список умений пуст
-                        return "У данного животного нет умений";
-                    }
-                }
-                else { return "Такого животного не существует"; }
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
+        
     }
 }
