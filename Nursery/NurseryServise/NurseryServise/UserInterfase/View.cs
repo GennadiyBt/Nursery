@@ -1,5 +1,4 @@
-﻿using Microsoft.Azure.Management.Storage.Fluent.Models;
-using NurseryServise.Controllers;
+﻿using NurseryServise.Controllers;
 using NurseryServise.Models;
 using System.Linq.Expressions;
 
@@ -23,13 +22,13 @@ namespace NurseryServise.UserInterfase
         {
             string kind;
             int id;
-            Animal animal;
+            //Animal animal;
 
             Console.WriteLine("Выберите животное по виду и  индивидуальному номеру в указанном виде.\n Введите вид:");
             kind = inputKind();
             Console.WriteLine("Введите Id животного:");
             id = Convert.ToInt32(Console.ReadLine());
-            animal = animalController.GetById(kind, id);
+            Animal animal = animalController.GetById(kind, id);
             return animal;
         }
 

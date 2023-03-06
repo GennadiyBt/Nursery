@@ -45,13 +45,13 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "Microsoft.Azure.Management.Storage.Fluent": {
+            "Azure.ResourceManager.Storage": {
               "target": "Package",
-              "version": "[1.38.1, )"
+              "version": "[1.1.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.2.3, )"
+              "version": "[6.5.0, )"
             },
             "System.Data.SQLite.Core": {
               "target": "Package",

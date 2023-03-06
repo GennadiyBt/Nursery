@@ -15,10 +15,11 @@ namespace NurseryServise.UserInterfase
         }
         public void start()
         {
-            View _view = new View(animalController);
+            //View _view = new View(animalController);
             Boolean flag = true;
             while (flag)
             {
+                View _view = new View(animalController);
                 Console.WriteLine("\n1 - Список всех животных нужного вида\n2 - Завести новое животное\n" +
                 "3 - Что умеет животное\n4 - Дрессировка\n5 - Удалить запись\n0 - Выход");
                 int input = Convert.ToInt32(Console.ReadLine());

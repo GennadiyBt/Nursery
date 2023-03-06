@@ -11,7 +11,7 @@ namespace NurseryServise.Models
         protected string? name;
         protected int id;
         protected DateTime birthday;
-        protected List<ISkill>? skills;
+        protected List<ISkill> skills = new List<ISkill>();
 
         public string getType()
         {

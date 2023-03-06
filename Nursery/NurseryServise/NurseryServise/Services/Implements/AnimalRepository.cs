@@ -101,6 +101,8 @@ namespace NurseryServise.Services.Implements
                     string name = reader.GetString(1);
                     DateTime Birthday = new DateTime(reader.GetInt64(2));
                     Animal animal = Constructor.createNewAnimal(kind, name, Birthday);
+                    // Вытащить список скилов как строку, разбить по пробелам, создать объекты скилов и сложить в список
+
                     animal.setId(id);
                     return animal;
                 }
@@ -121,9 +123,10 @@ namespace NurseryServise.Services.Implements
         {
             try
             {
-                string listSkills = null;
+                string listSkills = "";
                 foreach (ISkill item in trainingAnimal.getSkills())
                 {
+                    Console.WriteLine("Point1");
                     if (_skill.Equals(item))
                     {
                         Console.WriteLine("Данное умение уже изучено");
@@ -131,8 +134,7 @@ namespace NurseryServise.Services.Implements
                     }
                 }
                 trainingAnimal.addSkill(_skill);
-                
-                listSkills +=", " + _skill.ToString();
+                listSkills += _skill.ToString() + " ";
                 
                 Console.WriteLine("Вы изучили новое умение");
                 try
@@ -145,13 +147,15 @@ namespace NurseryServise.Services.Implements
                 finally
                 {
                     SQLiteConnection connection = new SQLiteConnection(connectionString);
+                    Console.WriteLine(listSkills);
                     try
                     {
                         connection.Open();
                         // Добавляем новое умение в БД к записи животного
                         SQLiteCommand command = new SQLiteCommand(connection);
-                        command.CommandText = "INSERT INTO " + trainingAnimal.kind + "(Commands) VALUES(@Commands)";
+                        command.CommandText = "UPDATE " + trainingAnimal.kind + " SET Commands = @Commands WHERE Id=@Id ";
                         command.Parameters.AddWithValue("@Commands", listSkills);
+                        command.Parameters.AddWithValue("@Id", trainingAnimal.getId());
                         command.Prepare();
                         command.ExecuteNonQuery();
                     }
@@ -162,7 +166,8 @@ namespace NurseryServise.Services.Implements
                 }
                 return 1;
             }
-            catch 
+            
+            catch (Exception)
             {
                 return -1;
             }
@@ -181,15 +186,20 @@ namespace NurseryServise.Services.Implements
                 SQLiteDataReader reader = command.ExecuteReader();
                 if (reader.Read()) // Если удалось что-то прочитать
                 {
-                    // возвращаем прочитанное
-                    string listSkill = reader.GetString(3);
-                    return listSkill;
-                }
-                else
-                {
+                    try
+                    {
+                        // возвращаем прочитанное
+                        string listSkill = reader.GetString(3);
+                        return listSkill;
+                    }
+                
+                    catch (IOException) //InvalidCastException)
+                    {
                     // Список умений пуст
-                    return "У данного животного нет умений";
+                        return "У данного животного нет умений";
+                    }
                 }
+                else {return "Такого животного не существует";}
             }
             finally
             {

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "NLhC/G9FT+kfVGnbz17BoM6hCnWCf8NF1U0J4Z8yvqWlRmcoJbh8rG5rpMhKXONTK4rIDhzqEHiL3Fbh4DNbNw==",
+  "success": true,
+  "projectFilePath": "D:\\Итоговый проект\\Nursery\\NurseryServise\\NurseryConsole\\NurseryConsole.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kaptu\\.nuget\\packages\\stub.system.data.sqlite.core.netstandard\\1.0.117\\stub.system.data.sqlite.core.netstandard.1.0.117.nupkg.sha512",
+    "C:\\Users\\kaptu\\.nuget\\packages\\system.data.sqlite.core\\1.0.117\\system.data.sqlite.core.1.0.117.nupkg.sha512"
+  ],
+  "logs": []
+}
