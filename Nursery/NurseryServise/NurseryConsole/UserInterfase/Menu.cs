@@ -19,27 +19,30 @@ namespace NurseryConsole.UserInterfase
             while (flag)
             {
                 View _view = new View(animalController);
-                Console.WriteLine("\n1 - Список всех животных нужного вида\n2 - Завести новое животное\n" +
-                "3 - Найти животное \n0 - Выход");
+                Console.WriteLine("\n1 - Список всех животных\n2 - Список всех животных нужного вида\n3 - Завести новое животное\n" +
+                "4 - Найти животное \n0 - Выход");
                 int input = Convert.ToInt32(Console.ReadLine());
                 switch (input)
                 {
                     case 1:
+                        animalController.GetAll();
+                        break;
+                    case 2:
                         Console.WriteLine("Просмотр животных по видам.");
                         string key = _view.inputKind();
                         if (key.Equals("Back")) { break; }
 
-                        List<Animal> animals = animalController.GetAll(key);
+                        List<Animal> animals = animalController.GetAllofKind(key);
                         _view.listOfAnimals(animals);
                         break;
-                    case 2:
+                    case 3:
                         // В языке C#  try-with-resources конструкция не предусмотрена, используем using
                         using (Counter counter = new Counter())
                         {
                             animalController.Create(_view);
                             break;
                         }
-                    case 3:
+                    case 4:
                         {
                             subMenu(_view);
                             break;
