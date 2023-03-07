@@ -35,9 +35,14 @@ namespace NurseryConsole.Controllers
             return _animalRepository.Delete(animal);
         }
 
-        public List<Animal> GetAll(string kind)
+        public List<Animal> GetAllofKind(string kind)
         {
-            return _animalRepository.GetAll(kind);
+            return _animalRepository.GetAllofKind(kind);
+        }
+
+        public void GetAll()
+        {
+            _animalRepository.GetAll();
         }
 
         

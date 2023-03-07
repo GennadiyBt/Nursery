@@ -7,8 +7,9 @@ namespace NurseryConsole.Services
     {
         int Create(Animal entity);
         int Train(Animal trainingAnimal, ISkill _skill, string listSkills);
-        List<Animal> GetAll(string kynd);
+        List<Animal> GetAllofKind(string kynd);
         Animal GetById(string kind, int id);
         int Delete(Animal animal);
+        void GetAll();
     }
 }

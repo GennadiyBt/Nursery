@@ -61,7 +61,7 @@ namespace NurseryConsole.Services.Implements
         }
 
 
-        public List<Animal> GetAll(string kind)
+        public List<Animal> GetAllofKind(string kind)
         {
             SQLiteConnection connection = new SQLiteConnection(connectionString);
             List<Animal> list = new List<Animal>();
@@ -112,7 +112,7 @@ namespace NurseryConsole.Services.Implements
                     try
                     {
                         string skill = reader.GetString(3);
-                        string[] skillList = skill.Split(" ");
+                        string[] skillList = skill.Split("");
                         for (int i = 0; i < skillList.Length; i++)
                         {
                             ISkill newSkill = new Skill(skillList[i]);
@@ -189,7 +189,29 @@ namespace NurseryConsole.Services.Implements
                 return -1;
             }
         }
-
         
+        public void GetAll()
+        {
+            SQLiteConnection connection = new SQLiteConnection(connectionString);
+            try
+            {
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT h.Name, h.Birthday, bob.Kind_name FROM hors h " +
+                    "LEFT JOIN beast_of_burden bob ON h.kind_id = bob.id UNION " +
+                    "SELECT c.Name, c.Birthday, bob.Kind_name FROM camel c LEFT JOIN beast_of_burden bob ON c.kind_id = bob.id " +
+                    "UNION SELECT d.Name, d.Birthday, bob.Kind_name FROM donkey d LEFT JOIN beast_of_burden bob ON d.kind_id = bob.id " +
+                    "UNION SELECT h.Name, h.Birthday, ha.Kind_name FROM hamster h LEFT JOIN home_animals ha ON h.kind_id = ha.id " +
+                    "UNION SELECT d.Name, d.Birthday, ha.Kind_name FROM dog d LEFT JOIN home_animals ha ON d.kind_id = ha.id " +
+                    "UNION SELECT c.Name, c.Birthday, ha.Kind_name FROM cat c LEFT JOIN home_animals ha ON c.kind_id = ha.id";
+                command.Prepare();
+                SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Console.WriteLine(reader.GetString(0) +", "+ new DateTime(reader.GetInt64(1)).ToShortDateString() +", "+ reader.GetString(2));
+                }
+            }
+            finally { connection.Close(); }
+        }
     }
 }
